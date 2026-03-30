@@ -2,19 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building from GitHub...'
+                bat 'docker build -t my-app .'
             }
         }
-        stage('Test') {
+
+        stage('Run Container') {
             steps {
-                echo 'Testing from GitHub...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying from GitHub...'
+                bat 'docker run -d -p 8081:80 my-app'
             }
         }
     }
